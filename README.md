@@ -175,11 +175,41 @@ VoiceAIApp/
 
 ## 🎨 Ekran Görüntüleri
 
+### 📱 Ana Ekran
 <div align="center">
 
-| Ana Ekran | Ayarlar | Ses Dönüştürme |
-|-----------|---------|----------------|
-| ![Ana Ekran](assets/screenshot-main.png) | ![Ayarlar](assets/screenshot-settings.png) | ![Ses Dönüştürme](assets/screenshot-conversion.png) |
+![Ana Ekran](assets/screenshot-main.png)
+
+**Voice AI Assistant Ana Ekranı**
+- Speech-to-Text, Text-to-Speech ve Voice Conversion özellikleri
+- Modern ve kullanıcı dostu arayüz
+- Gerçek zamanlı durum göstergeleri
+
+</div>
+
+### ⚙️ Ayarlar Ekranı
+<div align="center">
+
+![Ayarlar](assets/screenshot-settings.png)
+
+**Ayarlar ve Yapılandırma**
+- Dark/Light Mode geçişi
+- Deepgram API anahtarı yapılandırması
+- Çoklu dil seçenekleri (Türkçe, İngilizce, İspanyolca, Fransızca, Almanca ve daha fazlası)
+- ElevenLabs API anahtarı yapılandırması
+- Ses seçimi (Clyde, Roger ve daha fazlası)
+
+</div>
+
+### 🔄 Ses Dönüştürme Özelliği
+<div align="center">
+
+![Ses Dönüştürme](assets/screenshot-conversion.png)
+
+**Voice Conversion Workflow**
+- Ses kaydetme → Deepgram ile transkripsiyon → ElevenLabs ile ses dönüştürme
+- Hedef ses seçimi ve önizleme
+- Gerçek zamanlı işlem durumu
 
 </div>
 
