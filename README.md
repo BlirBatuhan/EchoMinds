@@ -173,43 +173,56 @@ VoiceAIApp/
 
 ---
 
-## 🎨 Ekran Görüntüleri
+## 🎨 Uygulama Özellikleri
 
-### 📱 Ana Ekran
+### 📱 Ana Ekran Özellikleri
 <div align="center">
 
-![Ana Ekran](assets/screenshot-main.png)
+**🎤 Speech-to-Text Bölümü**
+- Mikrofon ile ses kaydetme
+- Deepgram AI ile yüksek doğrulukta transkripsiyon
+- Çoklu dil desteği (Türkçe, İngilizce, İspanyolca, Fransızca, Almanca ve daha fazlası)
+- Otomatik dil tespiti
+- Transkripsiyon geçmişi
 
-**Voice AI Assistant Ana Ekranı**
-- Speech-to-Text, Text-to-Speech ve Voice Conversion özellikleri
-- Modern ve kullanıcı dostu arayüz
-- Gerçek zamanlı durum göstergeleri
+**🔊 Text-to-Speech Bölümü**
+- Metin girişi alanı
+- ElevenLabs AI ile doğal ses sentezi
+- Çoklu ses seçenekleri
+- Yüksek kaliteli ses çıktısı
 
-</div>
-
-### ⚙️ Ayarlar Ekranı
-<div align="center">
-
-![Ayarlar](assets/screenshot-settings.png)
-
-**Ayarlar ve Yapılandırma**
-- Dark/Light Mode geçişi
-- Deepgram API anahtarı yapılandırması
-- Çoklu dil seçenekleri (Türkçe, İngilizce, İspanyolca, Fransızca, Almanca ve daha fazlası)
-- ElevenLabs API anahtarı yapılandırması
-- Ses seçimi (Clyde, Roger ve daha fazlası)
-
-</div>
-
-### 🔄 Ses Dönüştürme Özelliği
-<div align="center">
-
-![Ses Dönüştürme](assets/screenshot-conversion.png)
-
-**Voice Conversion Workflow**
+**🔄 Voice Conversion Bölümü**
 - Ses kaydetme → Deepgram ile transkripsiyon → ElevenLabs ile ses dönüştürme
-- Hedef ses seçimi ve önizleme
+- Hedef ses seçimi
 - Gerçek zamanlı işlem durumu
+
+</div>
+
+### ⚙️ Ayarlar ve Yapılandırma
+<div align="center">
+
+**🌙 Dark/Light Mode**
+- Kullanıcı tercihine göre tema değişimi
+- Modern ve göz yormayan arayüz
+
+**🔑 API Yapılandırması**
+- Deepgram API anahtarı girişi
+- ElevenLabs API anahtarı girişi
+- Güvenli anahtar saklama
+
+**🌍 Dil Seçenekleri**
+- Auto-detect (Otomatik tespit)
+- English (US/UK)
+- Türkçe
+- Español, Français, Deutsch
+- Italiano, Português, Русский
+- 日本語, 한국어, 中文
+- العربية, हिन्दी
+
+**🎭 Ses Seçimi**
+- Clyde: Karakter kullanımları için ideal
+- Roger: Günlük konuşmalar için mükemmel
+- Ve daha fazla ses seçeneği
 
 </div>
 
