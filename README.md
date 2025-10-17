@@ -173,56 +173,33 @@ VoiceAIApp/
 
 ---
 
-## 🎨 Uygulama Özellikleri
+## 🎨 Ekran Görüntüleri
 
-### 📱 Ana Ekran Özellikleri
+### 📱 Ana Ekran
 <div align="center">
 
-**🎤 Speech-to-Text Bölümü**
-- Mikrofon ile ses kaydetme
-- Deepgram AI ile yüksek doğrulukta transkripsiyon
-- Çoklu dil desteği (Türkçe, İngilizce, İspanyolca, Fransızca, Almanca ve daha fazlası)
-- Otomatik dil tespiti
-- Transkripsiyon geçmişi
+![Voice AI Assistant Ana Ekranı](assets/EkranGoruntusu.jpeg)
 
-**🔊 Text-to-Speech Bölümü**
-- Metin girişi alanı
-- ElevenLabs AI ile doğal ses sentezi
-- Çoklu ses seçenekleri
-- Yüksek kaliteli ses çıktısı
-
-**🔄 Voice Conversion Bölümü**
-- Ses kaydetme → Deepgram ile transkripsiyon → ElevenLabs ile ses dönüştürme
-- Hedef ses seçimi
-- Gerçek zamanlı işlem durumu
+**Voice AI Assistant Ana Ekranı**
+- 🎤 Speech-to-Text: Mikrofon ile ses kaydetme ve Deepgram AI ile transkripsiyon
+- 🔊 Text-to-Speech: Metin girişi ve ElevenLabs AI ile doğal ses sentezi
+- 🔄 Voice Conversion: Ses kaydetme → Transkripsiyon → Ses dönüştürme
+- 🌍 Çoklu dil desteği (Türkçe, İngilizce ve 15+ dil)
+- 📊 Gerçek zamanlı durum göstergeleri
 
 </div>
 
-### ⚙️ Ayarlar ve Yapılandırma
+### ⚙️ Ayarlar Ekranı
 <div align="center">
 
-**🌙 Dark/Light Mode**
-- Kullanıcı tercihine göre tema değişimi
-- Modern ve göz yormayan arayüz
+![Voice AI Assistant Ayarlar](assets/EkranGoruntusu1.jpeg)
 
-**🔑 API Yapılandırması**
-- Deepgram API anahtarı girişi
-- ElevenLabs API anahtarı girişi
-- Güvenli anahtar saklama
-
-**🌍 Dil Seçenekleri**
-- Auto-detect (Otomatik tespit)
-- English (US/UK)
-- Türkçe
-- Español, Français, Deutsch
-- Italiano, Português, Русский
-- 日本語, 한국어, 中文
-- العربية, हिन्दी
-
-**🎭 Ses Seçimi**
-- Clyde: Karakter kullanımları için ideal
-- Roger: Günlük konuşmalar için mükemmel
-- Ve daha fazla ses seçeneği
+**Ayarlar ve Yapılandırma Ekranı**
+- 🌙 Dark/Light Mode: Kullanıcı tercihine göre tema değişimi
+- 🔑 API Yapılandırması: Deepgram ve ElevenLabs API anahtarları
+- 🌍 Dil Seçenekleri: Auto-detect, English, Türkçe, Español, Français, Deutsch ve daha fazlası
+- 🎭 Ses Seçimi: Clyde, Roger ve diğer ElevenLabs sesleri
+- ⚙️ Gelişmiş ayarlar ve ses kalitesi kontrolü
 
 </div>
 
