@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
+import LottieView from 'lottie-react-native';
 import { ElevenLabsService } from './services/ElevenLabsService';
 import { DeepgramService } from './services/DeepgramService';
 
@@ -41,10 +42,13 @@ export default function App() {
   const [isPlayingConverted, setIsPlayingConverted] = useState(false);
   const [error, setError] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [avatarText, setAvatarText] = useState('');
 
   const recording = useRef<Audio.Recording | null>(null);
   const elevenLabsService = useRef<ElevenLabsService | null>(null);
   const deepgramService = useRef<DeepgramService | null>(null);
+  const avatarAnimation = useRef<LottieView>(null);
 
   useEffect(() => {
     // Initialize ElevenLabs service
@@ -61,6 +65,8 @@ export default function App() {
         apiKey: deepgramApiKey
       });
     }
+
+    // Avatar will use ElevenLabs TTS
   }, [elevenLabsApiKey, deepgramApiKey]);
 
   const loadVoices = async () => {
@@ -330,6 +336,56 @@ export default function App() {
     }
   };
 
+  const speakAvatarText = async () => {
+    if (!avatarText.trim() || !elevenLabsService.current || !selectedVoice) {
+      setError('Please enter text for the avatar and ensure a voice is selected');
+      return;
+    }
+
+    try {
+      setError('');
+      setIsSpeaking(true);
+
+      console.log('Starting avatar TTS with ElevenLabs...');
+      const result = await elevenLabsService.current.textToSpeech(
+        avatarText,
+        selectedVoice,
+        (progress: number) => {
+          console.log('Avatar TTS progress:', progress + '%');
+        }
+      );
+
+      console.log('Avatar TTS completed:', result);
+
+      // Play the generated audio
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: result.uri },
+        { shouldPlay: true }
+      );
+
+      // Wait for playback to finish
+      await new Promise((resolve) => {
+        sound.setOnPlaybackStatusUpdate((status: any) => {
+          if (status.isLoaded && !status.isPlaying) {
+            resolve(null);
+          }
+        });
+      });
+
+      await sound.unloadAsync();
+      
+      // Stop animation when speech is finished
+      if (avatarAnimation.current) {
+        avatarAnimation.current.reset();
+      }
+    } catch (error) {
+      console.error('Error in avatar TTS:', error);
+      setError(`Avatar TTS failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsSpeaking(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} />
@@ -342,6 +398,63 @@ export default function App() {
           style={styles.settingsButton}
         >
           <Ionicons name="settings-outline" size={24} color={darkMode ? '#fff' : '#333'} />
+        </TouchableOpacity>
+      </View>
+
+      {/* Talking Avatar Section */}
+      <View style={styles.avatarSection}>
+        <Text style={styles.avatarTitle}>
+          <Ionicons name="person-outline" size={20} color={darkMode ? '#fff' : '#333'} /> Talking Avatar
+        </Text>
+        
+        <View style={styles.avatarContainer}>
+          <LottieView
+            ref={avatarAnimation}
+            source={require('./assets/monster.json')}
+            autoPlay={isSpeaking}
+            loop={isSpeaking}
+            style={styles.avatarAnimation}
+          />
+        </View>
+        
+        <TextInput
+          style={styles.avatarTextInput}
+          placeholder="Avatar için metin girin..."
+          placeholderTextColor={darkMode ? '#888' : '#666'}
+          value={avatarText}
+          onChangeText={setAvatarText}
+          multiline
+          numberOfLines={3}
+        />
+        
+        <View style={styles.avatarVoiceInfo}>
+          <Text style={styles.avatarVoiceText}>
+            Ses: {voices.find(v => v.voice_id === selectedVoice)?.name || 'Ses seçilmedi'}
+          </Text>
+          <TouchableOpacity
+            onPress={() => setShowSettings(true)}
+            style={styles.avatarVoiceButton}
+          >
+            <Text style={styles.avatarVoiceButtonText}>Ses Değiştir</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <TouchableOpacity
+          onPress={speakAvatarText}
+          style={[
+            styles.avatarButton,
+            isSpeaking && styles.disabledButton
+          ]}
+          disabled={!avatarText.trim() || isSpeaking}
+        >
+          <Ionicons 
+            name={isSpeaking ? 'hourglass-outline' : 'volume-high'} 
+            size={24} 
+            color="#fff" 
+          />
+          <Text style={styles.avatarButtonText}>
+            {isSpeaking ? 'Konuşuyor...' : 'Avatar Konuştur'}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -1039,5 +1152,99 @@ const styles = StyleSheet.create({
   },
   selectedLanguageText: {
     color: '#fff',
+  },
+  avatarSection: {
+    backgroundColor: darkMode ? '#2d2d2d' : '#fff',
+    padding: 20,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    alignItems: 'center',
+  },
+  avatarTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: darkMode ? '#fff' : '#333',
+    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  avatarContainer: {
+    width: 200,
+    height: 200,
+    backgroundColor: darkMode ? '#333' : '#f8f9fa',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  avatarAnimation: {
+    width: 180,
+    height: 180,
+  },
+  avatarTextInput: {
+    borderWidth: 1,
+    borderColor: darkMode ? '#444' : '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    color: darkMode ? '#fff' : '#333',
+    backgroundColor: darkMode ? '#333' : '#fff',
+    marginBottom: 16,
+    textAlignVertical: 'top',
+    width: '100%',
+  },
+  avatarButton: {
+    backgroundColor: '#4CAF50',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+    gap: 8,
+    width: '100%',
+  },
+  avatarButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  avatarVoiceInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: darkMode ? '#333' : '#f8f9fa',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    width: '100%',
+  },
+  avatarVoiceText: {
+    fontSize: 14,
+    color: darkMode ? '#fff' : '#333',
+    fontWeight: '500',
+  },
+  avatarVoiceButton: {
+    backgroundColor: '#2563eb',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  avatarVoiceButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '500',
   },
 });
