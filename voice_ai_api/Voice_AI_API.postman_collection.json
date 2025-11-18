@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "voice-ai-api-collection",
+		"name": "Voice AI API - Complete Collection",
+		"description": "Rails 8 Backend API for Voice AI Mobile Application\n\n**Authentication:** Bearer Token\n**Base URL:** http://localhost:3000/api/v1\n\n**Test User:**\n- Email: student@example.com\n- Get API Token: `rails console` → `User.first.api_token_digest`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{api_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "api_token",
+			"value": "YOUR_API_TOKEN_HERE",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Practice Texts",
+			"description": "İngilizce pratik metinleri yönetimi",
+			"item": [
+				{
+					"name": "Get Random Practice Text",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/practice_texts/random?language=en&difficulty=beginner",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts", "random"],
+							"query": [
+								{
+									"key": "language",
+									"value": "en",
+									"description": "Language: en, tr, es, fr, de"
+								},
+								{
+									"key": "difficulty",
+									"value": "beginner",
+									"description": "Difficulty: beginner, intermediate, advanced"
+								}
+							]
+						},
+						"description": "Rastgele bir pratik metni getirir. Authentication gerektirmez."
+					},
+					"response": []
+				},
+				{
+					"name": "List All Practice Texts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/practice_texts?language=en",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts"],
+							"query": [
+								{
+									"key": "language",
+									"value": "en",
+									"description": "Filter by language (optional)"
+								},
+								{
+									"key": "difficulty",
+									"value": "beginner",
+									"description": "Filter by difficulty (optional)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Tüm pratik metinleri listeler. Authentication gerektirmez."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Practice Text by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/practice_texts/1",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts", "1"]
+						},
+						"description": "Belirli bir pratik metnini getirir."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Practice Text",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"practice_text\": {\n    \"content\": \"The quick brown fox jumps over the lazy dog.\",\n    \"difficulty\": \"intermediate\",\n    \"language\": \"en\",\n    \"active\": true,\n    \"tags\": [\"animals\", \"action\"]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/practice_texts",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts"]
+						},
+						"description": "Yeni pratik metni oluşturur. Authentication gerektirir."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Practice Text",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"practice_text\": {\n    \"content\": \"Updated content here.\",\n    \"difficulty\": \"advanced\",\n    \"active\": false\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/practice_texts/1",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts", "1"]
+						},
+						"description": "Mevcut pratik metnini günceller."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Practice Text",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/practice_texts/1",
+							"host": ["{{base_url}}"],
+							"path": ["practice_texts", "1"]
+						},
+						"description": "Pratik metnini siler."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Avatar Sessions",
+			"description": "D-ID avatar video oturumları",
+			"item": [
+				{
+					"name": "List My Avatar Sessions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/avatar_sessions",
+							"host": ["{{base_url}}"],
+							"path": ["avatar_sessions"]
+						},
+						"description": "Kullanıcının tüm avatar oturumlarını listeler."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Avatar Session by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/avatar_sessions/1",
+							"host": ["{{base_url}}"],
+							"path": ["avatar_sessions", "1"]
+						},
+						"description": "Belirli bir avatar oturumunu getirir (practice_text ve transcript_comparison ile birlikte)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Avatar Session",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"avatar_session\": {\n    \"practice_text_id\": 1\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/avatar_sessions",
+							"host": ["{{base_url}}"],
+							"path": ["avatar_sessions"]
+						},
+						"description": "Yeni avatar oturumu oluşturur. Status otomatik 'pending' olarak ayarlanır."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Avatar Video",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Video URL'i polling ile kontrol etmek için session_id'yi kaydet",
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.environment.set(\"last_session_id\", jsonData.session.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/avatar_sessions/1/generate_video",
+							"host": ["{{base_url}}"],
+							"path": ["avatar_sessions", "1", "generate_video"]
+						},
+						"description": "Avatar videosu oluşturma job'ı başlatır. Background job çalışır (20-30 saniye). Session status 'processing' olur.\n\n**Not:** Video hazır olana kadar 'Get Avatar Session by ID' ile polling yapın."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Avatar Session",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"avatar_session\": {\n    \"status\": \"completed\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/avatar_sessions/1",
+							"host": ["{{base_url}}"],
+							"path": ["avatar_sessions", "1"]
+						},
+						"description": "Avatar oturumunu günceller (genellikle background job tarafından yapılır)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recordings",
+			"description": "Ses kayıtları yönetimi",
+			"item": [
+				{
+					"name": "Create Recording",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"recording\": {\n    \"storage_url\": \"https://your-storage.com/recording.m4a\",\n    \"duration_ms\": 5000,\n    \"avatar_session_id\": 1,\n    \"waveform\": {\n      \"samples\": [0.1, 0.3, 0.5, 0.7, 0.5, 0.3, 0.1]\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/recordings",
+							"host": ["{{base_url}}"],
+							"path": ["recordings"]
+						},
+						"description": "Yeni ses kaydı oluşturur. storage_url S3/CloudFlare R2 gibi servislerde olmalı.\n\n**avatar_session_id:** Opsiyonel, belirli bir session ile ilişkilendirmek için."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recording by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/recordings/1",
+							"host": ["{{base_url}}"],
+							"path": ["recordings", "1"]
+						},
+						"description": "Belirli bir ses kaydını getirir (transcript_comparison ile birlikte)."
+					},
+					"response": []
+				},
+				{
+					"name": "Transcribe Recording",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/recordings/1/transcribe",
+							"host": ["{{base_url}}"],
+							"path": ["recordings", "1", "transcribe"]
+						},
+						"description": "Ses kaydını transkript etme job'ı başlatır. AssemblyAI API'si kullanılır.\n\n**Background Job:**\n1. Ses dosyasını AssemblyAI'ye gönderir\n2. Transkript tamamlanana kadar bekler\n3. TranscriptComparison oluşturur\n4. Kullanıcı kredilerini günceller\n\n**Polling:** 'Get Recording by ID' ile transcript_comparison kontrolü yapın."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transcript Comparisons",
+			"description": "Transkript karşılaştırma sonuçları",
+			"item": [
+				{
+					"name": "List My Transcript Comparisons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transcript_comparisons",
+							"host": ["{{base_url}}"],
+							"path": ["transcript_comparisons"]
+						},
+						"description": "Kullanıcının tüm transkript karşılaştırmalarını listeler (avatar_session ve recording ile birlikte)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transcript Comparison by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transcript_comparisons/1",
+							"host": ["{{base_url}}"],
+							"path": ["transcript_comparisons", "1"]
+						},
+						"description": "Belirli bir transkript karşılaştırmasını getirir.\n\n**İçerik:**\n- reference_text: Orijinal metin\n- transcript_text: AssemblyAI çıktısı\n- similarity_score: 0-100 arası benzerlik\n- mismatched_words: Eksik ve fazla kelimeler"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "Kullanıcı bilgileri",
+			"item": [
+				{
+					"name": "Get Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/me",
+							"host": ["{{base_url}}"],
+							"path": ["me"]
+						},
+						"description": "Mevcut kullanıcının bilgilerini getirir (email, role, credits_remaining)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						},
+						"description": "Belirli bir kullanıcının bilgilerini getirir.\n\n**Authorization:** Sadece kendi profilini veya admin tüm kullanıcıları görebilir."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/up",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["up"]
+				},
+				"description": "Backend sunucusunun çalışıp çalışmadığını kontrol eder. Authentication gerektirmez."
+			},
+			"response": []
+		}
+	]
+}
+

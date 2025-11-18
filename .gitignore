@@ -1,0 +1,103 @@
+# ============================================
+# Voice AI Project - Root .gitignore
+# ============================================
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Build artifacts
+dist/
+build/
+out/
+
+# Dependencies (handled in subprojects)
+node_modules/
+vendor/
+
+# Test coverage
+coverage/
+
+# Database files
+*.sqlite3
+*.sqlite3-*
+*.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Documentation build
+docs/_build/
+
+# IDE specific
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+.loadpath
+
+# JetBrains
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Lock files (optional)
+# package-lock.json
+# yarn.lock
+# Gemfile.lock
+
